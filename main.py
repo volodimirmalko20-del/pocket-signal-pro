@@ -213,15 +213,15 @@ def telegram_listener():
             print("Listener error:", e)
             time.sleep(5)
 
+db_init()
+
+if BOT_TOKEN:
+    threading.Thread(
+        target=telegram_listener,
+        daemon=True
+    ).start()
+
 if __name__ == "__main__":
-    db_init()
-
-    if BOT_TOKEN:
-        threading.Thread(
-            target=telegram_listener,
-            daemon=True
-        ).start()
-
     app.run(
         host="0.0.0.0",
         port=int(os.getenv("PORT", 10000))
